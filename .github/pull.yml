@@ -1,8 +1,11 @@
+# Config for the Pull app (https://github.com/apps/pull).
+#
+# This fork intentionally carries local commits (see
+# lib/routes/threads/utils.ts `crawlerHeaders`), so the default `hardreset`
+# behaviour would silently discard them. Merge upstream in instead.
 version: '1'
 rules:
     - base: master
-      upstream: diygod:master
-      # default value if this file does not exist is `hardreset`, effectively overwriting any downstream changes!
-      # previously it was the misconfigured PR route test workflow that rescued downstream changes from being overwritten
+      upstream: DIYgod:master
       mergeMethod: merge
-      mergeUnstable: true # prevent non-pass tests from preventing automatic merge
+      mergeUnstable: true
