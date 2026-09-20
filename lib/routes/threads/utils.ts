@@ -3,6 +3,13 @@ import dayjs from 'dayjs';
 
 import { queryToBoolean } from '@/utils/readable-social';
 
+// Threads only embeds the full server-rendered `thread_items` payload when the request
+// looks like a crawler. Requests without a User-Agent get a truncated list (typically
+// only the 4 newest posts), so every profile/search fetch must carry a bot UA.
+export const crawlerHeaders = {
+    'user-agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+};
+
 export const profileUrl = (user: string) => `https://www.threads.com/@${user}`;
 export const threadUrl = (code: string) => `https://www.threads.com/t/${code}`;
 

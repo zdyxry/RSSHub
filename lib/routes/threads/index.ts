@@ -5,7 +5,7 @@ import { ViewType } from '@/types';
 import ofetch from '@/utils/ofetch';
 import { parseDate } from '@/utils/parse-date';
 
-import { buildContent, extractThreadItems, parseRouteOptions, profileUrl, threadUrl } from './utils';
+import { buildContent, crawlerHeaders, extractThreadItems, parseRouteOptions, profileUrl, threadUrl } from './utils';
 
 export const route: Route = {
     path: '/:user/:routeParams?',
@@ -38,7 +38,7 @@ async function handler(ctx) {
     const { user, routeParams } = ctx.req.param();
     const options = parseRouteOptions(new URLSearchParams(routeParams));
 
-    const response = await ofetch(profileUrl(user));
+    const response = await ofetch(profileUrl(user), { headers: crawlerHeaders });
     const $ = load(response);
 
     const threadsData = extractThreadItems($);

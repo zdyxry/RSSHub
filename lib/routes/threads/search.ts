@@ -5,7 +5,7 @@ import { ViewType } from '@/types';
 import ofetch from '@/utils/ofetch';
 import { parseDate } from '@/utils/parse-date';
 
-import { buildContent, extractThreadItems, parseRouteOptions, threadUrl } from './utils';
+import { buildContent, crawlerHeaders, extractThreadItems, parseRouteOptions, threadUrl } from './utils';
 
 export const route: Route = {
     path: '/search/:keyword/:routeParams?',
@@ -34,7 +34,7 @@ async function handler(ctx) {
     const serpType = params.get('serpType') ?? 'tags';
 
     const link = `https://www.threads.com/search?q=${encodeURIComponent(keyword)}&serp_type=${serpType}`;
-    const response = await ofetch(link);
+    const response = await ofetch(link, { headers: crawlerHeaders });
     const $ = load(response);
 
     const threadsData = extractThreadItems($);
