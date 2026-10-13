@@ -31,7 +31,7 @@ const middleware: MiddlewareHandler = async (ctx, next) => {
     for (const key in headers) {
         ctx.header(key, headers[key]);
     }
-    ctx.header('Access-Control-Allow-Origin', config.allowOrigin || new URL(ctx.req.url).host);
+    ctx.header('Access-Control-Allow-Origin', config.allowOrigin || '*');
 
     await next();
     const rPath = routePath(ctx);
